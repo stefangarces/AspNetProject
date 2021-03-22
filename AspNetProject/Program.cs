@@ -31,7 +31,7 @@ namespace AspNetProject
                     var context = services.GetRequiredService<AspNetProjectContext>();
 
                 }
-                catch (Exception sten)
+                catch (Exception sten) // change parameter
                 {
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(sten, "Yalla bror");
