@@ -36,23 +36,5 @@ namespace AspNetProject.Pages.Events
             }
             return Page();
         }
-        public async Task<IActionResult> OnPostAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Attendee GrabsAtEvents = await _context.Attendee.FirstOrDefaultAsync();
-            Event = await _context.Event.FirstOrDefaultAsync(m => m.ID == id);
-            GrabsAtEvents.Events.ToList().Add(Event);
-            _context.SaveChanges();
-
-            if (Event == null)
-            {
-                return NotFound();
-            }
-            return Page();
-        }
     }
 }

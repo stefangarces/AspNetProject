@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetProject.Models;
 
 namespace AspNetProject
 {
@@ -29,9 +30,12 @@ namespace AspNetProject
                 try
                 {
                     var context = services.GetRequiredService<AspNetProjectContext>();
+                    context.Attendee.RemoveRange(context.Attendee);
+                    context.Attendee.Add(new Attendee { UserName = "Bjorn", Email = "bjornstromberg@codic.se", PhoneNumber = "0700-000000" });
+                    context.SaveChanges();
 
                 }
-                catch (Exception sten) // change parameter
+                catch (Exception sten)
                 {
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(sten, "Yalla bror");

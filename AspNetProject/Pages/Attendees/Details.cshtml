@@ -31,9 +31,9 @@
         </dd>
     </dl>
 </div>
-@foreach (var item in Model.Attendee.Events)
+@foreach (var item in Model.Attendee.AttendeeEvents)
 {
-    @item.Title
+    @item.Event.Title
 }
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Attendee.ID">Edit</a> |

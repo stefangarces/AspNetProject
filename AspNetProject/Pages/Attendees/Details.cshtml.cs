@@ -28,7 +28,7 @@ namespace AspNetProject.Pages.Attendees
                 return NotFound();
             }
 
-            Attendee = await _context.Attendee.Include(a => a.Events).FirstOrDefaultAsync(m => m.ID == id);
+            Attendee = await _context.Attendee.Include(a => a.AttendeeEvents).FirstOrDefaultAsync(m => m.ID == id);
 
             if (Attendee == null)
             {

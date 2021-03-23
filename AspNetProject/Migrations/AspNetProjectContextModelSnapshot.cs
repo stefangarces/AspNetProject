@@ -48,7 +48,7 @@ namespace AspNetProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AttendeeID")
+                    b.Property<int>("AttendeeID")
                         .HasColumnType("int");
 
                     b.Property<int?>("EventID")
@@ -121,29 +121,16 @@ namespace AspNetProject.Migrations
                     b.ToTable("Organizer");
                 });
 
-            modelBuilder.Entity("AttendeeEvent", b =>
-                {
-                    b.Property<int>("AttendeesID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EventsID")
-                        .HasColumnType("int");
-
-                    b.HasKey("AttendeesID", "EventsID");
-
-                    b.HasIndex("EventsID");
-
-                    b.ToTable("AttendeeEvent");
-                });
-
             modelBuilder.Entity("AspNetProject.Models.AttendeeEvent", b =>
                 {
                     b.HasOne("AspNetProject.Models.Attendee", "Attendee")
-                        .WithMany()
-                        .HasForeignKey("AttendeeID");
+                        .WithMany("AttendeeEvents")
+                        .HasForeignKey("AttendeeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AspNetProject.Models.Event", "Event")
-                        .WithMany()
+                        .WithMany("AttendeeEvents")
                         .HasForeignKey("EventID");
 
                     b.Navigation("Attendee");
@@ -160,19 +147,14 @@ namespace AspNetProject.Migrations
                     b.Navigation("Organizer");
                 });
 
-            modelBuilder.Entity("AttendeeEvent", b =>
+            modelBuilder.Entity("AspNetProject.Models.Attendee", b =>
                 {
-                    b.HasOne("AspNetProject.Models.Attendee", null)
-                        .WithMany()
-                        .HasForeignKey("AttendeesID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("AttendeeEvents");
+                });
 
-                    b.HasOne("AspNetProject.Models.Event", null)
-                        .WithMany()
-                        .HasForeignKey("EventsID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            modelBuilder.Entity("AspNetProject.Models.Event", b =>
+                {
+                    b.Navigation("AttendeeEvents");
                 });
 
             modelBuilder.Entity("AspNetProject.Models.Organizer", b =>
