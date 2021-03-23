@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AspNetProject.Migrations
 {
     [DbContext(typeof(AspNetProjectContext))]
-    [Migration("20210318154501_UppdateraIgenYao")]
-    partial class UppdateraIgenYao
+    [Migration("20210323154413_ettettett")]
+    partial class ettettett
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,6 +35,7 @@ namespace AspNetProject.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -58,7 +59,7 @@ namespace AspNetProject.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OrgIDID")
+                    b.Property<int?>("OrganizerID")
                         .HasColumnType("int");
 
                     b.Property<string>("Place")
@@ -68,11 +69,12 @@ namespace AspNetProject.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("OrgIDID");
+                    b.HasIndex("OrganizerID");
 
                     b.ToTable("Event");
                 });
@@ -88,6 +90,7 @@ namespace AspNetProject.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OrgName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OrgPhoneNumber")
@@ -98,13 +101,48 @@ namespace AspNetProject.Migrations
                     b.ToTable("Organizer");
                 });
 
+            modelBuilder.Entity("AttendeeEvent", b =>
+                {
+                    b.Property<int>("AttendeesID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EventsID")
+                        .HasColumnType("int");
+
+                    b.HasKey("AttendeesID", "EventsID");
+
+                    b.HasIndex("EventsID");
+
+                    b.ToTable("AttendeeEvent");
+                });
+
             modelBuilder.Entity("AspNetProject.Models.Event", b =>
                 {
-                    b.HasOne("AspNetProject.Models.Organizer", "OrgID")
-                        .WithMany()
-                        .HasForeignKey("OrgIDID");
+                    b.HasOne("AspNetProject.Models.Organizer", "Organizer")
+                        .WithMany("Events")
+                        .HasForeignKey("OrganizerID");
 
-                    b.Navigation("OrgID");
+                    b.Navigation("Organizer");
+                });
+
+            modelBuilder.Entity("AttendeeEvent", b =>
+                {
+                    b.HasOne("AspNetProject.Models.Attendee", null)
+                        .WithMany()
+                        .HasForeignKey("AttendeesID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AspNetProject.Models.Event", null)
+                        .WithMany()
+                        .HasForeignKey("EventsID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AspNetProject.Models.Organizer", b =>
+                {
+                    b.Navigation("Events");
                 });
 #pragma warning restore 612, 618
         }

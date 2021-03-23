@@ -50,6 +50,9 @@
     </dl>
 </div>
 <div>
+    <form method="post">
+        <input asp-page="./Details" asp-route-id="@Model.Event.ID" type="Submit">
+    </form>
     <a asp-page="./Edit" asp-route-id="@Model.Event.ID">Edit</a> |
     <a asp-page="./Index">Back to List</a>
 </div>

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AspNetProject.Data;
 using AspNetProject.Models;
 
-namespace AspNetProject.Pages.Events
+namespace AspNetProject.Pages.Attendees
 {
     public class DetailsModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace AspNetProject.Pages.Events
             _context = context;
         }
 
-        public Event Event { get; set; }
+        public Attendee Attendee { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,27 +28,9 @@ namespace AspNetProject.Pages.Events
                 return NotFound();
             }
 
-            Event = await _context.Event.FirstOrDefaultAsync(m => m.ID == id);
+            Attendee = await _context.Attendee.Include(a => a.Events).FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Event == null)
-            {
-                return NotFound();
-            }
-            return Page();
-        }
-        public async Task<IActionResult> OnPostAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Attendee GrabsAtEvents = await _context.Attendee.FirstOrDefaultAsync();
-            Event = await _context.Event.FirstOrDefaultAsync(m => m.ID == id);
-            GrabsAtEvents.Events.ToList().Add(Event);
-            _context.SaveChanges();
-
-            if (Event == null)
+            if (Attendee == null)
             {
                 return NotFound();
             }

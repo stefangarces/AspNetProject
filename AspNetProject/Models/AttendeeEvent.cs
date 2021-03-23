@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace AspNetProject.Models
 {
-    public class Attendee
+    public class AttendeeEvent
     {
         public int ID { get; set; }
         [Required]
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public ICollection<AttendeeEvent> AttendeeEvents { get; set; }
+        public Attendee Attendee { get; set; }
+        public Event Event { get; set; }
     }
 }

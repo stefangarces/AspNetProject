@@ -17,6 +17,6 @@ namespace AspNetProject.Models
         public DateTime Date { get; set; }
         public bool TicketsAvailable { get; set; }
         public Organizer Organizer { get; set; }
-        public ICollection<Attendee> Attendees { get; set; }
+        public ICollection<AttendeeEvent> AttendeeEvents { get; set; }
     }
 }
