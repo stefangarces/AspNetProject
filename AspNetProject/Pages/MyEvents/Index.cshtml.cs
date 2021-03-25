@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AspNetProject.Pages.MyEvents
@@ -15,11 +16,11 @@ namespace AspNetProject.Pages.MyEvents
             _context = context;
         }
 
-        public IList<Event> Event { get; set; }
+        public IList<AttendeeEvent> AttendeeEvent { get; set; }
 
         public async Task OnGetAsync()
         {
-            Event = await _context.Event.ToListAsync();
+            AttendeeEvent = await _context.AttendeeEvents.Include(e => e.Event).Where(a => a.Attendee.ID == 8675).ToListAsync();
         }
     }
 }

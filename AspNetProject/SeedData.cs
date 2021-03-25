@@ -13,6 +13,7 @@ namespace AspNetProject
 
             context.Attendee.Add(new Attendee
             {
+                ID = 8675,
                 UserName = "Bjorn",
                 Email = "bjornstromberg@codic.se",
                 PhoneNumber = "0700-001001"

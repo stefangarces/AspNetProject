@@ -1,9 +1,7 @@
 ﻿@page
 @model AspNetProject.Pages.MyEvents.IndexModel
 
-@{
-    ViewData["Title"] = "Index";
-}
+@{ ViewData["Title"] = "Index"; }
 
 <h1>Index</h1>
 
@@ -14,53 +12,52 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].Title)
+                Title
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].Description)
+                Description
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].Place)
+                Place
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].Adress)
+                Adress
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].Date)
+                Date
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].TicketsAvailable)
+                TicketsAvailable
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Event)
+        @foreach (var item in Model.AttendeeEvent)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Place)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Adress)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TicketsAvailable)
-                </td>
-                <td>
-                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-                </td>
-            </tr>
-        }
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Event.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Event.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Event.Place)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Event.Adress)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Event.Date)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Event.TicketsAvailable)
+    </td>
+    <td>
+        <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+        <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+    </td>
+</tr>}
     </tbody>
 </table>
