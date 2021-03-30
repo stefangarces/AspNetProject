@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using AspNetProject.Models;
 
 namespace AspNetProject.Data
 {
-    public class AspNetProjectContext : DbContext
+    public class AspNetProjectContext : IdentityDbContext
     {
-        public AspNetProjectContext (DbContextOptions<AspNetProjectContext> options)
+        public AspNetProjectContext(DbContextOptions<AspNetProjectContext> options)
             : base(options)
         {
         }
