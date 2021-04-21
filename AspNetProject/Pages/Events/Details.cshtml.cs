@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AspNetProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using AspNetProject.Data;
-using AspNetProject.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AspNetProject.Pages.Events
 {
@@ -20,6 +17,7 @@ namespace AspNetProject.Pages.Events
         }
 
         public Event Event { get; set; }
+        public bool IsJoined { get; set; } = false;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,6 +27,12 @@ namespace AspNetProject.Pages.Events
             }
 
             Event = await _context.Event.FirstOrDefaultAsync(m => m.ID == id);
+            AttendeeEvent AttendeeEvent = await _context.AttendeeEvents.Where(ae => ae.Attendee.ID == 8675 && ae.Event.ID == id).FirstOrDefaultAsync();
+
+            if (AttendeeEvent != default)
+            {
+                IsJoined = true;
+            }
 
             if (Event == null)
             {
